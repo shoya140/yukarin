@@ -6,7 +6,7 @@ pysptk
 pyworld
 fastdtw
 matplotlib
-chainerui
+chainerui==0.3
 tensorflow
 pillow
 git+https://github.com/neka-nat/tensorboard-chainer
