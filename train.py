@@ -98,7 +98,7 @@ ext = extensions.snapshot_object(predictor, filename='predictor_{.updater.iterat
 trainer.extend(ext, trigger=trigger_snapshot)
 
 trainer.extend(extensions.LogReport(trigger=trigger_log))
-trainer.extend(TensorBoardReport(writer=tb_writer), trigger=trigger_log)
+trainer.extend(TensorBoardReport(writer=tb_writer, isOnGPU=config.train.gpu>=0), trigger=trigger_log)
 
 if trigger_stop is not None:
     trainer.extend(extensions.ProgressBar(trigger_stop))

@@ -5,8 +5,9 @@ from tb_chainer import SummaryWriter
 
 
 class TensorBoardReport(chainer.training.Extension):
-    def __init__(self, writer=None):
+    def __init__(self, writer=None, isOnGPU=True):
         self.writer = writer
+        self.isOnGPU = isOnGPU
 
     def __call__(self, trainer: chainer.training.Trainer):
         if self.writer is None:
@@ -17,7 +18,7 @@ class TensorBoardReport(chainer.training.Extension):
         for n, v in observations.items():
             if isinstance(v, chainer.Variable):
                 v = v.data
-            if isinstance(v, chainer.cuda.cupy.ndarray):
+            if self.isOnGPU and isinstance(v, chainer.cuda.cupy.ndarray):
                 v = chainer.cuda.to_cpu(v)
 
             self.writer.add_scalar(n, v, n_iter)
